@@ -21,6 +21,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cqframework.version>2.4.0</cqframework.version>
     </properties>
 
     <distributionManagement>
@@ -59,6 +60,46 @@
         </dependency>
 
         <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>model-jaxb</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql-to-elm</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>elm</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>elm-jaxb</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>quick</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>qdm</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql-formatter</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.22</version>
@@ -68,7 +109,7 @@
         <dependency>
             <groupId>ca.uhn.hapi.fhir</groupId>
             <artifactId>hapi-fhir-structures-r4</artifactId>
-            <version>5.0.2</version>
+            <version>6.4.0</version>
         </dependency>
 
         <dependency>
