@@ -22,11 +22,15 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-#Intellij files.
+#Eclipse & Intellij files.
 *.iml
 .idea
 .settings
 **/.mvn
+.classpath
+.project
+
+**/*.DS_Store
 
 #Maven target dris.
 **/target
