@@ -48,7 +48,7 @@ public interface IncludeParser extends CommentParser {
     }
 
     private String findIncludeVersion(String line) {
-        return StringUtils.substringBetween(line, " version '", "' ");
+        return StringUtils.substringBetween(line, " version '", "'");
     }
 
     private String getIncludeUsing(String line) {
