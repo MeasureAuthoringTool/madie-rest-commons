@@ -14,7 +14,7 @@ public interface UsingParser extends CommentParser {
 
         return Arrays.stream(getLines())
                 .filter(l -> !lineComment(l, isInComment))
-                .filter(l -> l.startsWith("using"))
+                .filter(l -> l.trim().startsWith("using"))
                 .map(this::buildUsingProperties)
                 .findFirst()
                 .orElse(null);
