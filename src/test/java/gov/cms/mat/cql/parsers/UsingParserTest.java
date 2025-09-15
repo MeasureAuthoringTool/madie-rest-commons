@@ -2,6 +2,10 @@ package gov.cms.mat.cql.parsers;
 
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+
 public class UsingParserTest {
 
     public static class UsingParserImpl implements UsingParser {
@@ -17,7 +21,7 @@ public class UsingParserTest {
         }
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testGetLinesWithSingleLine() {
         // given
         String cql = "library Test version '1.0.0'";
@@ -25,11 +29,11 @@ public class UsingParserTest {
         // when
         String[] lines = parser.getLines();
         // then
-        org.hamcrest.MatcherAssert.assertThat(lines.length, org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo(1)));
-        org.hamcrest.MatcherAssert.assertThat(lines[0], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("library Test version '1.0.0'")));
+        assertThat(lines.length, is(equalTo(1)));
+        assertThat(lines[0], is(equalTo("library Test version '1.0.0'")));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testGetLinesWithMultipleLines() {
         // given
         String cql = "library Test version '1.0.0'\nusing FHIR version '4.0.1'\ninclude SomeLib version '1.2.3'";
@@ -37,13 +41,13 @@ public class UsingParserTest {
         // when
         String[] lines = parser.getLines();
         // then
-        org.hamcrest.MatcherAssert.assertThat(lines.length, org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo(3)));
-        org.hamcrest.MatcherAssert.assertThat(lines[0], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("library Test version '1.0.0'")));
-        org.hamcrest.MatcherAssert.assertThat(lines[1], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("using FHIR version '4.0.1'")));
-        org.hamcrest.MatcherAssert.assertThat(lines[2], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("include SomeLib version '1.2.3'")));
+        assertThat(lines.length, is(equalTo(3)));
+        assertThat(lines[0], is(equalTo("library Test version '1.0.0'")));
+        assertThat(lines[1], is(equalTo("using FHIR version '4.0.1'")));
+        assertThat(lines[2], is(equalTo("include SomeLib version '1.2.3'")));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testGetLinesWithEmptyString() {
         // given
         String cql = "";
@@ -51,11 +55,11 @@ public class UsingParserTest {
         // when
         String[] lines = parser.getLines();
         // then
-        org.hamcrest.MatcherAssert.assertThat(lines.length, org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo(1)));
-        org.hamcrest.MatcherAssert.assertThat(lines[0], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("")));
+        assertThat(lines.length, is(equalTo(1)));
+        assertThat(lines[0], is(equalTo("")));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testGetLinesWithWindowsLineEndings() {
         // given
         String cql = "line1\r\nline2\r\nline3";
@@ -63,13 +67,13 @@ public class UsingParserTest {
         // when
         String[] lines = parser.getLines();
         // then
-        org.hamcrest.MatcherAssert.assertThat(lines.length, org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo(3)));
-        org.hamcrest.MatcherAssert.assertThat(lines[0], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("line1")));
-        org.hamcrest.MatcherAssert.assertThat(lines[1], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("line2")));
-        org.hamcrest.MatcherAssert.assertThat(lines[2], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("line3")));
+        assertThat(lines.length, is(equalTo(3)));
+        assertThat(lines[0], is(equalTo("line1")));
+        assertThat(lines[1], is(equalTo("line2")));
+        assertThat(lines[2], is(equalTo("line3")));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testGetLinesWithTrailingNewline() {
         // given
         String cql = "line1\nline2\n";
@@ -77,12 +81,12 @@ public class UsingParserTest {
         // when
         String[] lines = parser.getLines();
         // then
-        org.hamcrest.MatcherAssert.assertThat(lines.length, org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo(2)));
-        org.hamcrest.MatcherAssert.assertThat(lines[0], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("line1")));
-        org.hamcrest.MatcherAssert.assertThat(lines[1], org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo("line2")));
+        assertThat(lines.length, is(equalTo(2)));
+        assertThat(lines[0], is(equalTo("line1")));
+        assertThat(lines[1], is(equalTo("line2")));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testGetLinesWithOnlyNewlines() {
         // given
         String cql = "\n\n";
@@ -90,8 +94,52 @@ public class UsingParserTest {
         // when
         String[] lines = parser.getLines();
         // then
-        org.hamcrest.MatcherAssert.assertThat(lines.length, org.hamcrest.Matchers.is(org.hamcrest.Matchers.equalTo(0)));
+        assertThat(lines.length, is(equalTo(0)));
     }
 
+    @Test
+    public void testGetAllUsingsWithMultipleUsings() {
+        // given
+        String cql = "library Test version '1.0.0'\nusing USCore version '7.0.0'\nusing QICore version '7.0.0'\nusing Other version '2.0'";
+        UsingParserImpl parser = new UsingParserImpl(cql);
+        // when
+        var usings = parser.getAllUsings();
+        // then
+        assertThat(usings.size(), is(equalTo(3)));
+        assertThat(usings.get(0).getLibraryType(), is(equalTo("USCore")));
+        assertThat(usings.get(0).getVersion(), is(equalTo("7.0.0")));
+        assertThat(usings.get(1).getLibraryType(), is(equalTo("QICore")));
+        assertThat(usings.get(1).getVersion(), is(equalTo("7.0.0")));
+        assertThat(usings.get(2).getLibraryType(), is(equalTo("Other")));
+        assertThat(usings.get(2).getVersion(), is(equalTo("2.0")));
+    }
 
+    @Test
+    public void testGetAllUsingsWithCommentsAndBlankLines() {
+        // given
+        String cql = "// This is a comment\nusing USCore version '7.0.0'\n\n/* block comment */\nusing QICore version '7.0.0'\nusing Other version '4.0.0' // trailing comment";
+        UsingParserImpl parser = new UsingParserImpl(cql);
+        // when
+        var usings = parser.getAllUsings();
+        // then
+        assertThat(usings.size(), is(equalTo(3)));
+        assertThat(usings.get(0).getLibraryType(), is(equalTo("USCore")));
+        assertThat(usings.get(0).getVersion(), is(equalTo("7.0.0")));
+        assertThat(usings.get(1).getLibraryType(), is(equalTo("QICore")));
+        assertThat(usings.get(1).getVersion(), is(equalTo("7.0.0")));
+        assertThat(usings.get(2).getLibraryType(), is(equalTo("Other")));
+        assertThat(usings.get(2).getVersion(), is(equalTo("4.0.0")));
+        assertThat(usings.get(2).getLine(), is(equalTo("using Other version '4.0.0' // trailing comment")));
+    }
+
+    @Test
+    public void testGetAllUsingsWithNoUsings() {
+        // given
+        String cql = "library Test version '1.0.0'\ninclude SomeLib version '1.2.3'";
+        UsingParserImpl parser = new UsingParserImpl(cql);
+        // when
+        var usings = parser.getAllUsings();
+        // then
+        assertThat(usings.size(), is(equalTo(0)));
+    }
 }
