@@ -4,6 +4,7 @@ import gov.cms.mat.cql.elements.UsingProperties;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public interface UsingParser extends CommentParser {
@@ -18,6 +19,16 @@ public interface UsingParser extends CommentParser {
                 .map(this::buildUsingProperties)
                 .findFirst()
                 .orElse(null);
+    }
+
+    default List<UsingProperties> getAllUsings() {
+        AtomicBoolean isInComment = new AtomicBoolean(false);
+
+        return Arrays.stream(getLines())
+                .filter(l -> !lineComment(l, isInComment))
+                .filter(l -> l.trim().startsWith("using"))
+                .map(this::buildUsingProperties)
+                .toList();
     }
 
     private UsingProperties buildUsingProperties(String line) {
