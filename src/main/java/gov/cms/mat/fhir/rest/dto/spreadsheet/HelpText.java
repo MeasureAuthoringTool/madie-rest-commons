@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class HelpText {
-    private String elementId;
-    private String compositeHelp;
+  private String elementId;
+  private String compositeHelp;
 }

@@ -11,13 +11,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MeasureConversionResults {
-    private List<FieldConversionResult> measureResults = new ArrayList<>();
-    private ConversionType measureConversionType;
-    private List<FhirValidationResult> measureFhirValidationResults = new ArrayList<>();
+  private List<FieldConversionResult> measureResults = new ArrayList<>();
+  private ConversionType measureConversionType;
+  private List<FhirValidationResult> measureFhirValidationResults = new ArrayList<>();
 
-    String reason;
-    Boolean success;
-    String link;
+  String reason;
+  Boolean success;
+  String link;
 
-    String fhirMeasureJson;
+  String fhirMeasureJson;
 }

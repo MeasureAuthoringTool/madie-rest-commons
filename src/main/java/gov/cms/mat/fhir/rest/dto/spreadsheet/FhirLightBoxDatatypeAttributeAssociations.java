@@ -11,16 +11,16 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class FhirLightBoxDatatypeAttributeAssociations  implements Comparable<FhirLightBoxDatatypeAttributeAssociations> {
-    private String datatype;
-    private String attribute;
-    private String attributeType;
-    private Boolean hasBinding;
+public class FhirLightBoxDatatypeAttributeAssociations
+    implements Comparable<FhirLightBoxDatatypeAttributeAssociations> {
+  private String datatype;
+  private String attribute;
+  private String attributeType;
+  private Boolean hasBinding;
 
-    @Override
-    public int compareTo(FhirLightBoxDatatypeAttributeAssociations rhs) {
-        int last = this.datatype.compareToIgnoreCase(rhs.datatype);
-        return last == 0 ? this.attribute.compareToIgnoreCase(rhs.attribute) : last;
-    }
+  @Override
+  public int compareTo(FhirLightBoxDatatypeAttributeAssociations rhs) {
+    int last = this.datatype.compareToIgnoreCase(rhs.datatype);
+    return last == 0 ? this.attribute.compareToIgnoreCase(rhs.attribute) : last;
+  }
 }
-

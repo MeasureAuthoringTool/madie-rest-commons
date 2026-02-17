@@ -10,24 +10,24 @@ import org.apache.commons.lang3.StringUtils;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public class CodeSystemProperties extends BaseProperties {
-    private static final String CODE_SYSTEM_TEMPLATE = "codesystem \"%s\": '%s'";
-    private static final String VERSION_TEMPLATE = " version '%s'";
+  private static final String CODE_SYSTEM_TEMPLATE = "codesystem \"%s\": '%s'";
+  private static final String VERSION_TEMPLATE = " version '%s'";
 
-    String name;
-    @Setter
-    String urnOid;
-    String line;
-    @Setter
-    String version;
+  String name;
+  @Setter String urnOid;
+  String line;
+  @Setter String version;
 
-    @Override
-    public void setToFhir() {
-        log.trace("Currently a no op");
-    }
+  @Override
+  public void setToFhir() {
+    log.trace("Currently a no op");
+  }
 
-    @Override
-    public String createCql() {
-        String converted = String.format(CODE_SYSTEM_TEMPLATE, name, urnOid);
-        return StringUtils.isEmpty(version) ? converted : converted + String.format(VERSION_TEMPLATE, version);
-    }
+  @Override
+  public String createCql() {
+    String converted = String.format(CODE_SYSTEM_TEMPLATE, name, urnOid);
+    return StringUtils.isEmpty(version)
+        ? converted
+        : converted + String.format(VERSION_TEMPLATE, version);
+  }
 }

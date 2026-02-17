@@ -10,13 +10,13 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class SymbolicAttributeProperty {
-    private String using;
+  private String using;
 
-    public String getMatAttributeName() {
-        return using.substring(using.indexOf('.') + 1);
-    }
+  public String getMatAttributeName() {
+    return using.substring(using.indexOf('.') + 1);
+  }
 
-    public String getSymbolicName() {
-        return using.substring(0, using.indexOf('.'));
-    }
+  public String getSymbolicName() {
+    return using.substring(0, using.indexOf('.'));
+  }
 }

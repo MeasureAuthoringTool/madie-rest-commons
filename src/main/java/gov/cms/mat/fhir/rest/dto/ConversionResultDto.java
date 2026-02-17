@@ -12,17 +12,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConversionResultDto {
-    String measureId;
-    String modified;
+  String measureId;
+  String modified;
 
-    private String errorReason;
-    private ConversionOutcome outcome;
-    private ConversionType conversionType;
+  private String errorReason;
+  private ConversionOutcome outcome;
+  private ConversionType conversionType;
 
-    List<ValueSetConversionResults> valueSetConversionResults;
+  List<ValueSetConversionResults> valueSetConversionResults;
 
-    MeasureConversionResults measureConversionResults;
+  MeasureConversionResults measureConversionResults;
 
-    List<LibraryConversionResults> libraryConversionResults;
+  List<LibraryConversionResults> libraryConversionResults;
 }
-

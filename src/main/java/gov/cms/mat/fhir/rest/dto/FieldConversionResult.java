@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FieldConversionResult {
-    String field;
-    String destination;
-    String reason;
+  String field;
+  String destination;
+  String reason;
 }

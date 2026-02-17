@@ -9,28 +9,28 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public interface CodeSystemParser extends OidParser, CommentParser {
-    String[] getLines();
+  String[] getLines();
 
-    default List<CodeSystemProperties> getCodeSystems() {
-        AtomicBoolean isInComment = new AtomicBoolean(false);
+  default List<CodeSystemProperties> getCodeSystems() {
+    AtomicBoolean isInComment = new AtomicBoolean(false);
 
-        return Arrays.stream(getLines())
-                .filter(l -> !lineComment(l, isInComment))
-                .filter(l -> l.startsWith("codesystem"))
-                .map(this::buildCodeSystemProperties)
-                .collect(Collectors.toList());
-    }
+    return Arrays.stream(getLines())
+        .filter(l -> !lineComment(l, isInComment))
+        .filter(l -> l.startsWith("codesystem"))
+        .map(this::buildCodeSystemProperties)
+        .collect(Collectors.toList());
+  }
 
-    default CodeSystemProperties buildCodeSystemProperties(String line) {
-        return CodeSystemProperties.builder()
-                .line(line)
-                .name(findName(line))
-                .urnOid(findOid(line))
-                .version(findVersion(line))
-                .build();
-    }
+  default CodeSystemProperties buildCodeSystemProperties(String line) {
+    return CodeSystemProperties.builder()
+        .line(line)
+        .name(findName(line))
+        .urnOid(findOid(line))
+        .version(findVersion(line))
+        .build();
+  }
 
-    private String findVersion(String line) {
-        return StringUtils.substringBetween(line, "version '", "'");
-    }
+  private String findVersion(String line) {
+    return StringUtils.substringBetween(line, "version '", "'");
+  }
 }

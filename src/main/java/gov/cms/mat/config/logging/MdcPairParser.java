@@ -11,65 +11,63 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class MdcPairParser {
-    private MdcPairParser() {
-        //util class
+  private MdcPairParser() {
+    // util class
+  }
+
+  public static void parseAndSetInMdc(String params) {
+    if (StringUtils.isBlank(params)) {
+      log.debug("Params string is blank");
+    } else {
+      String[] paramsArray = params.split(",");
+
+      List<MdcPair> nameValuePairs =
+          Arrays.stream(paramsArray)
+              .filter(MdcPairParser::checkParam)
+              .map(MdcPairParser::parseParam)
+              .collect(Collectors.toList());
+
+      nameValuePairs.forEach(n -> MDC.put(n.getName(), n.getValue()));
     }
 
-    public static void parseAndSetInMdc(String params) {
-        if (StringUtils.isBlank(params)) {
-            log.debug("Params string is blank");
-        } else {
-            String[] paramsArray = params.split(",");
+    String uuid = UUID.randomUUID().toString();
+    log.debug("Adding requestId UUID: {}", uuid);
+    MDC.put("requestId", uuid);
 
-            List<MdcPair> nameValuePairs = Arrays.stream(paramsArray)
-                    .filter(MdcPairParser::checkParam)
-                    .map(MdcPairParser::parseParam)
-                    .collect(Collectors.toList());
+    addMissingDefaultParamsToMDC();
+  }
 
-            nameValuePairs.forEach(n -> MDC.put(n.getName(), n.getValue()));
-        }
+  public static void addMissingDefaultParamsToMDC() {
+    addIfMissing("transactionId");
+  }
 
-        String uuid = UUID.randomUUID().toString();
-        log.debug("Adding requestId UUID: {}", uuid);
-        MDC.put("requestId", uuid);
+  private static void addIfMissing(String key) {
+    if (MDC.get(key) == null) {
+      String uuid = UUID.randomUUID().toString();
+      log.debug("Adding default UUID: {} for MDC key: {}", uuid, key);
+      MDC.put(key, uuid);
+    }
+  }
 
-        addMissingDefaultParamsToMDC();
+  private static boolean checkParam(String param) {
+    if (StringUtils.isBlank(param)) {
+      log.debug("Param string is blank");
+      return false;
     }
 
-    public static void addMissingDefaultParamsToMDC() {
-        addIfMissing("transactionId");
+    int matches = StringUtils.countMatches(param, "=");
+
+    if (matches == 1) {
+      return true;
+    } else {
+      log.debug("Cannot parse param string: {}", param);
+      return false;
     }
+  }
 
-    private static void addIfMissing(String key) {
-        if (MDC.get(key) == null) {
-            String uuid = UUID.randomUUID().toString();
-            log.debug("Adding default UUID: {} for MDC key: {}", uuid, key);
-            MDC.put(key, uuid);
-        }
-    }
+  private static MdcPair parseParam(String param) {
+    String[] paramsArray = param.split("=");
 
-    private static boolean checkParam(String param) {
-        if (StringUtils.isBlank(param)) {
-            log.debug("Param string is blank");
-            return false;
-        }
-
-        int matches = StringUtils.countMatches(param, "=");
-
-        if (matches == 1) {
-            return true;
-        } else {
-            log.debug("Cannot parse param string: {}", param);
-            return false;
-        }
-    }
-
-    private static MdcPair parseParam(String param) {
-        String[] paramsArray = param.split("=");
-
-        return MdcPair.builder()
-                .name(paramsArray[0].trim())
-                .value(paramsArray[1].trim())
-                .build();
-    }
+    return MdcPair.builder().name(paramsArray[0].trim()).value(paramsArray[1].trim()).build();
+  }
 }

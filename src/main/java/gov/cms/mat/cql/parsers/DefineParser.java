@@ -9,57 +9,56 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public interface DefineParser extends SymbolicParser, CommentParser {
-    String[] getLines();
+  String[] getLines();
 
-    default List<DefineProperties> getDefines() {
-        List<DefineProperties> properties = new ArrayList<>();
-        Iterator<String> iterator = Arrays.stream(getLines()).iterator();
-        AtomicBoolean isInComment = new AtomicBoolean(false);
+  default List<DefineProperties> getDefines() {
+    List<DefineProperties> properties = new ArrayList<>();
+    Iterator<String> iterator = Arrays.stream(getLines()).iterator();
+    AtomicBoolean isInComment = new AtomicBoolean(false);
 
-        while (iterator.hasNext()) {
-            String line = iterator.next();
+    while (iterator.hasNext()) {
+      String line = iterator.next();
 
-            if (!lineComment(line, isInComment)) {
-                if (line.startsWith("define ")) {
-                    properties.add(buildDefineProperties(line, iterator));
-                }
-            }
+      if (!lineComment(line, isInComment)) {
+        if (line.startsWith("define ")) {
+          properties.add(buildDefineProperties(line, iterator));
         }
-
-        return properties;
+      }
     }
 
-    private DefineProperties buildDefineProperties(String firstLine, Iterator<String> iterator) {
-        StringBuilder stringBuilder = new StringBuilder(firstLine);
-        stringBuilder.append("\n");
+    return properties;
+  }
 
-        while (iterator.hasNext()) {
-            String line = iterator.next();
+  private DefineProperties buildDefineProperties(String firstLine, Iterator<String> iterator) {
+    StringBuilder stringBuilder = new StringBuilder(firstLine);
+    stringBuilder.append("\n");
 
-            if (line == null || line.trim().length() == 0) {
-                break;
-            } else {
-                stringBuilder.append(line).append("\n");
-            }
-        }
+    while (iterator.hasNext()) {
+      String line = iterator.next();
 
-        List<SymbolicProperty> symbolicProperties = getSymbolicProperties(stringBuilder.toString());
-
-        symbolicProperties.stream()
-                .filter(s -> StringUtils.isNotEmpty(s.getSymbolic()))
-                .forEach(p -> parseSymbolicAttributes(p, stringBuilder.toString()));
-
-        return DefineProperties.builder()
-                .line(stringBuilder.toString())
-                .defineData(stringBuilder.toString())
-                .symbolicProperties(symbolicProperties)
-                .build();
+      if (line == null || line.trim().length() == 0) {
+        break;
+      } else {
+        stringBuilder.append(line).append("\n");
+      }
     }
 
+    List<SymbolicProperty> symbolicProperties = getSymbolicProperties(stringBuilder.toString());
 
-    private void parseSymbolicAttributes(SymbolicProperty symbolic, String defineData) {
-        SymbolicAttributeParser symbolicAttributeParser = new SymbolicAttributeParser(defineData);
-        Set<SymbolicAttributeProperty> set = symbolicAttributeParser.find(symbolic.getSymbolic());
-        symbolic.setAttributePropertySet(set);
-    }
+    symbolicProperties.stream()
+        .filter(s -> StringUtils.isNotEmpty(s.getSymbolic()))
+        .forEach(p -> parseSymbolicAttributes(p, stringBuilder.toString()));
+
+    return DefineProperties.builder()
+        .line(stringBuilder.toString())
+        .defineData(stringBuilder.toString())
+        .symbolicProperties(symbolicProperties)
+        .build();
+  }
+
+  private void parseSymbolicAttributes(SymbolicProperty symbolic, String defineData) {
+    SymbolicAttributeParser symbolicAttributeParser = new SymbolicAttributeParser(defineData);
+    Set<SymbolicAttributeProperty> set = symbolicAttributeParser.find(symbolic.getSymbolic());
+    symbolic.setAttributePropertySet(set);
+  }
 }

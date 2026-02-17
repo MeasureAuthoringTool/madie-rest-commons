@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PushValidationResult {
-    boolean isValid;
-    String url;
-    List<FhirValidationResult> fhirValidationResults;
+  boolean isValid;
+  String url;
+  List<FhirValidationResult> fhirValidationResults;
 }

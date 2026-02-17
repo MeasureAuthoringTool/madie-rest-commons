@@ -10,9 +10,8 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class ConversionDataTypes {
-    private String qdmType;
-    private String fhirType;
-    private String whereAdjustment;
-    private String comment;
+  private String qdmType;
+  private String fhirType;
+  private String whereAdjustment;
+  private String comment;
 }
-

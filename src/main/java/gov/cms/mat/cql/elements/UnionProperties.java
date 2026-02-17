@@ -7,10 +7,9 @@ import java.util.List;
 
 @Data
 public class UnionProperties {
-    List<String> lines = new ArrayList<>();
+  List<String> lines = new ArrayList<>();
 
-    public void addLine(String line) {
-        lines.add(line);
-    }
-
+  public void addLine(String line) {
+    lines.add(line);
+  }
 }

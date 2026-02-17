@@ -10,11 +10,10 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class QdmToQicoreMapping {
-    private String title;
-    private String matDataType;
-    private String matAttributeType;
-    private String fhirQICoreMapping;
-    private String type;
-    private String cardinality;
+  private String title;
+  private String matDataType;
+  private String matAttributeType;
+  private String fhirQICoreMapping;
+  private String type;
+  private String cardinality;
 }
-

@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class RequiredMeasureField {
-    private String field;
-    private String type;
+  private String field;
+  private String type;
 }
