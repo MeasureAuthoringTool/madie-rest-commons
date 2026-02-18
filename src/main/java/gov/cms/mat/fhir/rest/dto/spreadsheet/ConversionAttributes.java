@@ -12,10 +12,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class ConversionAttributes {
-    private String qdmType;
-    private String qdmAttribute;
-    private String fhirType;
-    private String fhirAttribute;
-    private String comment;
+  private String qdmType;
+  private String qdmAttribute;
+  private String fhirType;
+  private String fhirAttribute;
+  private String comment;
 }
-

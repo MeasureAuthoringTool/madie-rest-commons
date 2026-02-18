@@ -12,21 +12,21 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LibraryConversionResults {
-    String matLibraryId;
-    String fhirLibraryId;
-    String name;
+  String matLibraryId;
+  String fhirLibraryId;
+  String name;
 
-    String version;
-    String reason;
-    Boolean success;
-    String link;
-    String fhirLibraryJson;
-    Map<String, List<CqlConversionError>> externalErrors;
-    /* Error results when validating the  */
-    private List<FhirValidationResult> libraryFhirValidationResults = new ArrayList<>(); // KEEP
-    private CqlConversionResult cqlConversionResult = new CqlConversionResult();
+  String version;
+  String reason;
+  Boolean success;
+  String link;
+  String fhirLibraryJson;
+  Map<String, List<CqlConversionError>> externalErrors;
+  /* Error results when validating the  */
+  private List<FhirValidationResult> libraryFhirValidationResults = new ArrayList<>(); // KEEP
+  private CqlConversionResult cqlConversionResult = new CqlConversionResult();
 
-    public LibraryConversionResults(String matLibraryId) {
-        this.matLibraryId = matLibraryId;
-    }
+  public LibraryConversionResults(String matLibraryId) {
+    this.matLibraryId = matLibraryId;
+  }
 }

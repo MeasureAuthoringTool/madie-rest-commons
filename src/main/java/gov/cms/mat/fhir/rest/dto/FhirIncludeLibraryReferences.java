@@ -13,11 +13,11 @@ import org.hl7.fhir.r4.model.Library;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"name", "version"})
 public class FhirIncludeLibraryReferences {
-    String name;
-    String version;
-    String referenceEndpoint;
-    boolean searchResult;
+  String name;
+  String version;
+  String referenceEndpoint;
+  boolean searchResult;
 
-    Library library;
-    boolean scannedForIncludedLibraries = false;
+  Library library;
+  boolean scannedForIncludedLibraries = false;
 }

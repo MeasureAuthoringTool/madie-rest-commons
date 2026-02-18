@@ -11,15 +11,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValueSetConversionResults {
-    String oid;
-    String reason;
-    Boolean success;
-    String link;
-    String json;
+  String oid;
+  String reason;
+  Boolean success;
+  String link;
+  String json;
 
-    List<FhirValidationResult> valueSetFhirValidationResults = new ArrayList<>();
+  List<FhirValidationResult> valueSetFhirValidationResults = new ArrayList<>();
 
-    public ValueSetConversionResults(String oid) {
-        this.oid = oid;
-    }
+  public ValueSetConversionResults(String oid) {
+    this.oid = oid;
+  }
 }

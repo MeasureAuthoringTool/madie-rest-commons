@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValueSetResult {
-    String reason;
-    Boolean success;
-    String link;
+  String reason;
+  Boolean success;
+  String link;
 }

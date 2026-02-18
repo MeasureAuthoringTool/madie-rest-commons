@@ -9,24 +9,22 @@ import java.util.stream.Collectors;
 
 public final class MdcHeaderString {
 
-    public static final String MDC_START_KEY = "exec-start";
-    public static final String MDC_PARAMS_ID = "mdc-params";
+  public static final String MDC_START_KEY = "exec-start";
+  public static final String MDC_PARAMS_ID = "mdc-params";
 
+  public static Optional<String> create() {
+    Map<String, String> mdcMap = MDC.getCopyOfContextMap();
 
-    public static Optional<String> create() {
-        Map<String, String> mdcMap = MDC.getCopyOfContextMap();
-
-        if (CollectionUtils.isEmpty(mdcMap)) {
-            return Optional.empty();
-        } else {
-            return Optional.of(parseMap(mdcMap));
-        }
+    if (CollectionUtils.isEmpty(mdcMap)) {
+      return Optional.empty();
+    } else {
+      return Optional.of(parseMap(mdcMap));
     }
+  }
 
-    private static String parseMap(Map<String, String> mdcMap) {
-        return mdcMap.entrySet().stream()
-                .map(e -> e.getKey() + "=" + e.getValue())
-                .collect(Collectors.joining(" , "));
-
-    }
+  private static String parseMap(Map<String, String> mdcMap) {
+    return mdcMap.entrySet().stream()
+        .map(e -> e.getKey() + "=" + e.getValue())
+        .collect(Collectors.joining(" , "));
+  }
 }

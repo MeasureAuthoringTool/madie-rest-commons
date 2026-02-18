@@ -9,52 +9,50 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public interface UnionParser extends CommentParser {
-    String[] getLines();
+  String[] getLines();
 
-    default List<UnionProperties> getUnions() {
-        List<UnionProperties> properties = new ArrayList<>();
-        Iterator<String> iterator = Arrays.stream(getLines()).iterator();
-        AtomicBoolean isInComment = new AtomicBoolean(false);
+  default List<UnionProperties> getUnions() {
+    List<UnionProperties> properties = new ArrayList<>();
+    Iterator<String> iterator = Arrays.stream(getLines()).iterator();
+    AtomicBoolean isInComment = new AtomicBoolean(false);
 
-        while (iterator.hasNext()) {
-            String line = iterator.next().trim();
+    while (iterator.hasNext()) {
+      String line = iterator.next().trim();
 
-            if (!lineComment(line, isInComment)) {
-                if (isUnion(line)) {
-                    properties.add(buildUnionProperties(line, iterator));
-                }
-            }
+      if (!lineComment(line, isInComment)) {
+        if (isUnion(line)) {
+          properties.add(buildUnionProperties(line, iterator));
         }
-
-        return properties;
+      }
     }
 
-    private UnionProperties buildUnionProperties(String firstLine, Iterator<String> iterator) {
-        UnionProperties unionProperties = new UnionProperties();
-        unionProperties.addLine(firstLine);
+    return properties;
+  }
 
-        AtomicBoolean isInComment = new AtomicBoolean(false);
+  private UnionProperties buildUnionProperties(String firstLine, Iterator<String> iterator) {
+    UnionProperties unionProperties = new UnionProperties();
+    unionProperties.addLine(firstLine);
 
-        while (iterator.hasNext()) {
-            String line = iterator.next().trim();
+    AtomicBoolean isInComment = new AtomicBoolean(false);
 
-            if (lineComment(line, isInComment)) {
-                continue;
-            }
+    while (iterator.hasNext()) {
+      String line = iterator.next().trim();
 
-            if (isUnion(line)) {
-                unionProperties.addLine(line);
-            } else {
-                break;
-            }
-        }
+      if (lineComment(line, isInComment)) {
+        continue;
+      }
 
-        return unionProperties;
+      if (isUnion(line)) {
+        unionProperties.addLine(line);
+      } else {
+        break;
+      }
     }
 
-    private boolean isUnion(String line) {
-        return line.startsWith("union ");
-    }
+    return unionProperties;
+  }
 
-
+  private boolean isUnion(String line) {
+    return line.startsWith("union ");
+  }
 }

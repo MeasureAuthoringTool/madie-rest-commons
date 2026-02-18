@@ -10,9 +10,9 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class WithProperty {
-    private String using;
+  private String using;
 
-    public String getMatAttributeName() {
-        return using.substring(using.indexOf('.'));
-    }
+  public String getMatAttributeName() {
+    return using.substring(using.indexOf('.'));
+  }
 }

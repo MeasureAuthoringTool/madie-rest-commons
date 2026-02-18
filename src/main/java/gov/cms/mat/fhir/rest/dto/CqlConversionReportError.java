@@ -5,21 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-
 @Builder
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CqlConversionReportError extends CqlConversionBase {
-    String errorSeverity;
+  String errorSeverity;
 
-    String libraryId;
+  String libraryId;
 
-    String libraryVersion; //added to
+  String libraryVersion; // added to
 
-    String message;
-    String type;
+  String message;
+  String type;
 
-    int count;
-
+  int count;
 }

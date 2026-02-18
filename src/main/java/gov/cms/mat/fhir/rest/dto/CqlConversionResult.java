@@ -10,31 +10,28 @@ import java.util.Set;
 
 @Data
 public class CqlConversionResult {
-    ConversionType type;
-    Boolean result;
+  ConversionType type;
+  Boolean result;
 
-    /* informative strings of errors */
-    List<String> errors = new ArrayList<>();
+  /* informative strings of errors */
+  List<String> errors = new ArrayList<>();
 
-    /* QDM */
-    @Transient
-    String cql;
-    @Transient
-    String elm;
+  /* QDM */
+  @Transient String cql;
+  @Transient String elm;
 
-    /* results added automatically by cql-elm-translation service when translating qdm elm */
-    Set<CqlConversionError> cqlConversionErrors = new HashSet<>(); // results added automatically by elm  service
+  /* results added automatically by cql-elm-translation service when translating qdm elm */
+  Set<CqlConversionError> cqlConversionErrors =
+      new HashSet<>(); // results added automatically by elm  service
 
-    /* results we add for exceptions cql-elm-translation service misses for some reason when translating qdm elm*/
-    Set<MatCqlConversionException> matCqlConversionErrors = new HashSet<>();
+  /* results we add for exceptions cql-elm-translation service misses for some reason when translating qdm elm*/
+  Set<MatCqlConversionException> matCqlConversionErrors = new HashSet<>();
 
-    @Transient
-    String fhirCql;
-    @Transient
-    String fhirElm;
+  @Transient String fhirCql;
+  @Transient String fhirElm;
 
-    /* results added automatically by cql-elm-translation service when translating fhir elm */
-    Set<CqlConversionError> fhirCqlConversionErrors = new HashSet<>();
-    /* results we add for exceptions cql-elm-translation service misses for some reason when translating fhir elm */
-    Set<MatCqlConversionException> fhirMatCqlConversionErrors = new HashSet<>();
+  /* results added automatically by cql-elm-translation service when translating fhir elm */
+  Set<CqlConversionError> fhirCqlConversionErrors = new HashSet<>();
+  /* results we add for exceptions cql-elm-translation service misses for some reason when translating fhir elm */
+  Set<MatCqlConversionException> fhirMatCqlConversionErrors = new HashSet<>();
 }

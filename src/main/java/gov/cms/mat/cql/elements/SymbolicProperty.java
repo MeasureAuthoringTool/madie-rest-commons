@@ -14,14 +14,8 @@ import java.util.Set;
 @ToString
 @Slf4j
 public class SymbolicProperty {
-    @Setter
-    private String matDataTypeDescription;
-    private final String symbolic;
-    @Setter
-    private Set<SymbolicAttributeProperty> attributePropertySet;
-    @Getter
-    @Setter
-    private QdmToFhirMappingHelper helper;
-
-
+  @Setter private String matDataTypeDescription;
+  private final String symbolic;
+  @Setter private Set<SymbolicAttributeProperty> attributePropertySet;
+  @Getter @Setter private QdmToFhirMappingHelper helper;
 }

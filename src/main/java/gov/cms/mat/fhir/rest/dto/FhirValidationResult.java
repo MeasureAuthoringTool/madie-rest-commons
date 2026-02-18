@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FhirValidationResult {
-    String severity;
-    String locationField;
-    String errorDescription;
+  String severity;
+  String locationField;
+  String errorDescription;
 }

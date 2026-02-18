@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CqlPayload {
-    String data;
-    CqlPayloadType type;
+  String data;
+  CqlPayloadType type;
 }
