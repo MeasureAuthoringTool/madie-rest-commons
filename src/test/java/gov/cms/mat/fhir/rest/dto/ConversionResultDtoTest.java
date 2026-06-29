@@ -1,8 +1,6 @@
 package gov.cms.mat.fhir.rest.dto;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import gov.cms.mat.ResourceFileUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,7 @@ class ConversionResultDtoTest implements ResourceFileUtil {
   private static final ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
-  void parseJson() throws JsonProcessingException {
+  void parseJson() {
     String json = getStringFromResource("/report.json");
     ConversionResultDto conversionResultDto =
         objectMapper.readValue(json, ConversionResultDto.class);
